@@ -4,4 +4,5 @@ export interface ApplicationState {
 
 export interface ProfileState {
     userName: string;
+    isAuthenticated: boolean;
 }

@@ -6,7 +6,6 @@ export const theme = createMuiTheme({
       // Name of the rule
       style: {
         background: '#202830',
-        borderRadius: 3,
         border: 0,
         color: 'white',
         boxShadow: 'gray',

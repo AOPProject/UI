@@ -4,6 +4,7 @@ import { Router } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core";
 import './index.css';
 import App from './components/App/App';
+import NavBar from './components/NavBar/NavBar';
 import * as serviceWorker from './serviceWorker';
 import { applyMiddleware, createStore}  from "redux";
 import reducers from './store/reducers';
@@ -28,6 +29,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <MuiThemeProvider theme={theme}>
+        <NavBar/>
         <Routes/>
       </MuiThemeProvider>
     </Router>
