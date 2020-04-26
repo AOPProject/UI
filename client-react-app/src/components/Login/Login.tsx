@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import AccesibilityIcon from '@material-ui/icons/AccessibilityOutlined';
 import { ApplicationState } from '../../store/application-state';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 interface LoginState {
@@ -27,24 +27,23 @@ class LoginContainer extends React.Component<{}, LoginState> {
 
   login = (userName: string, password: string) => {
       console.log('Logging...')
-  }
+  };
   
   changeUserName = (event: any) => {
     this.setState({
       userName: event.target.value
     })
-  }
+  };
 
   changePassword = (event: any) => {
     this.setState({
       password: event.target.value
     })
-  }
-
+  };
 
   render() {
     return(
-      <div style={{display: 'flex', height: '100%'}}>
+      <div style={{margin: 'auto'}}>
         <div className="login-container">
         <ValidatorForm onSubmit={(event) => {
           event.preventDefault();

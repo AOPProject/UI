@@ -5,6 +5,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { AccountCircle, Home } from '@material-ui/icons';
 import { ApplicationState } from '../../store/application-state';
+import {palette} from "../../styles/palette";
 
 interface NavBarProps{
   userName: string,
@@ -17,13 +18,13 @@ class NavBarContainer extends React.Component<NavBarProps, {}> {
 
     return(
       <React.Fragment>
-        <AppBar position="static" color="primary">
+        <AppBar position="static" style={{backgroundColor: palette.customColors.darkRed}}>
           <Toolbar>
             <Link to="/" style={{width: '5%', display: 'flex', justifyContent: 'center'}}>
               <Home style={{ color: 'white' }}/>
             </Link>
             <Typography variant="h6" style={{width: '90%', display: 'flex', justifyContent: 'center'}}>
-              <Link to="/" style={{color: 'white'}}>AOP</Link>
+              <Link to="/" style={{color: 'white'}}>Front Desk</Link>
             </Typography>
             <Link to={this.props.isAuthenticated ? '/profile' :'/login'} style={{width: '5%', display: 'flex', justifyContent: 'center', color: 'white'}}>
               {loginInfo}
