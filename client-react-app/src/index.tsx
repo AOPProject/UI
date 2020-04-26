@@ -12,8 +12,16 @@ import history from './history';
 import { Routes } from './Routes';
 import { Provider } from "react-redux";
 import { theme } from './styles/material-theme';
+import createSagaMiddleware from "redux-saga";
+import {rootSaga} from "./store/sagas";
 
-export const store = createStore(reducers, applyMiddleware(logger));
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
+
+export const store = createStore(reducers, applyMiddleware(sagaMiddleware, logger));
+
+// run the saga
+sagaMiddleware.run(rootSaga);
 
 store.dispatch({type: 'INITIAL_STATE_REDUX_TEST'});
 

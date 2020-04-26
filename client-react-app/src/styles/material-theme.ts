@@ -167,6 +167,8 @@ export const themeOptions: ThemeOptions = {
       root: {
         '&$error': {
           color: palette.red.main,
+          marginTop: 30,
+          marginLeft: 0,
         },
         position: 'absolute',
         top: 'calc(100% - 24px)',
@@ -181,6 +183,11 @@ export const themeOptions: ThemeOptions = {
           marginTop: 18
         }
       },
+    },
+    MuiFormControl: {
+      marginNormal: {
+        marginBottom: 20
+      }
     },
     MuiSelect: {
       root: {
@@ -234,6 +241,14 @@ export const themeOptions: ThemeOptions = {
         fontSize: '0.75rem',
         fontWeight: 400,
         color: palette.winterGrey.supporting_2,
+      }
+    },
+    MuiLinearProgress: {
+      colorPrimary: {
+        backgroundColor: palette.autumnGrey.light
+      },
+      barColorPrimary: {
+        backgroundColor: palette.customColors.darkRed
       }
     }
   }

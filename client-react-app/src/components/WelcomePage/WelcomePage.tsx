@@ -7,6 +7,7 @@ import employeeIcon from '../../assets/employee-icon.svg';
 import './WelcomePage.css';
 import {palette} from "../../styles/palette";
 import history from '../../history';
+import {ApplicationRoutes} from "../../Routes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +29,7 @@ export function WelcomePage() {
     <div className={classes.root}>
       <Paper elevation={3}
              className="box"
-             onClick={() => {history.push('/candidate-page')}}>
+             onClick={() => {history.push(ApplicationRoutes.CANDIDATE_PAGE)}}>
         <div style={{margin: 'auto'}}>
           <Typography variant={"h5"}
                       style={{marginTop: 24, color: palette.autumnGrey.ultraDark, textAlign: 'center'}}>
@@ -39,7 +40,7 @@ export function WelcomePage() {
       </Paper>
       <Paper elevation={3}
              className="box"
-             onClick={() => {history.push('/login')}}>
+             onClick={() => {history.push(ApplicationRoutes.LOGIN)}}>
         <div style={{margin: 'auto'}}>
           <Typography variant={"h5"}
                       style={{marginTop: 24, color: palette.autumnGrey.ultraDark, textAlign: 'center'}}>
