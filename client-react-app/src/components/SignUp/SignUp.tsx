@@ -8,10 +8,12 @@ import {ProfileActions} from "../../store/profile/profile.actions";
 
 interface SignUpState {
   email: string,
+  password: string;
+  matchingPassword: string;
 }
 
 interface SignUpProps {
-  createAccount: (email: string) => void;
+  createAccount: (email: string, password: string, matchingPassword: string) => void;
   loading: boolean;
   error: boolean;
 }
@@ -24,16 +26,36 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
 
     this.state = {
       email: '',
+      password: '',
+      matchingPassword: ''
     };
   }
 
-  createAccount = (email: string) => {
-    this.props.createAccount(email);
+  componentDidMount() {
+    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
+      return value === this.state.password;
+    });
+  }
+
+  createAccount = (email: string, password: string, matchingPassword: string) => {
+    this.props.createAccount(email, password, matchingPassword);
   };
 
   changeEmail = (event: any) => {
     this.setState({
       email: event.target.value
+    })
+  };
+
+  changePassword = (event: any) => {
+    this.setState({
+      password: event.target.value
+    })
+  };
+
+  changeMatchingPassword = (event: any) => {
+    this.setState({
+      matchingPassword: event.target.value
     })
   };
 
@@ -44,7 +66,8 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
         <div className="padding-40">
           <ValidatorForm onSubmit={(event) => {
             event.preventDefault();
-            return this.createAccount(this.state.email);
+            const {email, password, matchingPassword} = this.state;
+            return this.createAccount(email, password, matchingPassword);
           }} >
             <div style={{alignSelf: 'center'}}>
               <AccesibilityIcon style={{marginLeft: '48%'}}/>
@@ -64,6 +87,36 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
                 className="width-100"
                 validators={['required']}
                 errorMessages={['This field is required']}
+              />
+            </div>
+
+            <div style={{width: '100%'}}>
+              <TextValidator
+                name="password"
+                placeholder="Password"
+                variant="outlined"
+                value={this.state.password}
+                margin="normal"
+                type="password"
+                onChange={this.changePassword}
+                className="width-100"
+                validators={['required']}
+                errorMessages={['This field is required']}
+              />
+            </div>
+
+            <div style={{width: '100%'}}>
+              <TextValidator
+                name="matchingPassword"
+                placeholder="Confirm password"
+                variant="outlined"
+                value={this.state.matchingPassword}
+                margin="normal"
+                type="password"
+                onChange={this.changeMatchingPassword}
+                className="width-100"
+                validators={['isPasswordMatch']}
+                errorMessages={['Password does not match']}
               />
             </div>
 
@@ -93,7 +146,9 @@ const mapStateToProps = (state : ApplicationState) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createAccount: (email: string) => dispatch(ProfileActions.registerStart(email))
+    createAccount: (email: string, password: string, matchingPassword: string) => {
+      dispatch(ProfileActions.registerStart(email, password, matchingPassword))
+    }
   }
 };
 

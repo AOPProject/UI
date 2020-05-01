@@ -32,11 +32,13 @@ export class ProfileActions {
     }
   }
 
-  static registerStart(email: string) {
+  static registerStart(email: string, password: string, matchingPassword: string) {
     return {
       type: ProfileActionTypes.REGISTER_START,
       payload: {
         email,
+        password,
+        matchingPassword
       }
     }
   }

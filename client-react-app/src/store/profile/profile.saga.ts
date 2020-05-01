@@ -1,7 +1,8 @@
-import {all, delay, put, takeEvery} from "redux-saga/effects";
+import {all, call, delay, put, takeEvery} from "redux-saga/effects";
 import {ProfileActions, ProfileActionTypes} from "./profile.actions";
 import history from "../../history";
 import {ApplicationRoutes} from "../../Routes";
+import axios from 'axios';
 
 export function* profileSaga() {
   yield all([
@@ -22,15 +23,17 @@ function* setCandidateInterviewDetails() {
   }
 }
 
-function* requestAccountCreation() {
-  // fetch data... (replace whats inside payload)
-  const error = true;
-  yield delay(1000);
+function* requestAccountCreation(action) {
+  try {
+    console.log('payload: ', action.payload);
+    yield delay(1000);
+    const {data} = yield call(axios.post, 'http://localhost:8080/register', action.payload);
 
-  if (error) {
-    yield put(ProfileActions.registerError(error));
-  } else {
+    console.log('Data is: ', data);
+
     history.push(ApplicationRoutes.LOGIN);
     yield put(ProfileActions.registerSuccess({}));
+  } catch(error) {
+    yield put(ProfileActions.registerError(error));
   }
 }
