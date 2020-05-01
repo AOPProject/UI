@@ -19,6 +19,15 @@ export function profileReducer(state = initialState, action: any) {
     case ProfileActionTypes.LOGIN_ERROR: {
       return {...state, ...{loading: false}, ...{error: action.error}};
     }
+    case ProfileActionTypes.REGISTER_START: {
+      return {...state, ...{loading: true}};
+    }
+    case ProfileActionTypes.REGISTER_SUCCESS: {
+      return {...state, ...{loading: false}};
+    }
+    case ProfileActionTypes.REGISTER_ERROR: {
+      return {...state, ...{loading: false}, ...{error: action.error}};
+    }
     default:
       return state;
   }

@@ -6,6 +6,7 @@ import { ApplicationState } from '../../store/application-state';
 import { Link } from "react-router-dom";
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {ProfileActions} from "../../store/profile/profile.actions";
+import {ApplicationRoutes} from "../../Routes";
 
 interface LoginState {
   userName: string,
@@ -59,10 +60,10 @@ class LoginContainer extends React.Component<LoginProps, LoginState> {
               <AccesibilityIcon style={{marginLeft: '48%'}}/>
             </div>
             <h1 style={{textAlign: 'center'}}>
-              Sign in to access the app!
+              Sign in
             </h1>
             <h3 style={{textAlign: 'center', color: 'gray'}}>
-              Or <Link to='signup'><u><b>register</b></u></Link> if you don't have an account.
+              Or <Link to={ApplicationRoutes.SIGN_UP}><u><b>register</b></u></Link> if you don't have an account.
             </h3>
             <div>
               <TextValidator
