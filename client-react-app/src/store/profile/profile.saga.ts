@@ -7,26 +7,26 @@ import { session } from '../../index';
 
 export function* profileSaga() {
   yield all([
-    takeEvery(ProfileActionTypes.LOGIN_START, setCandidateInterviewDetails),
-    takeEvery(ProfileActionTypes.REGISTER_START, requestAccountCreation),
+    takeEvery(ProfileActionTypes.LOGIN_START, login),
+    takeEvery(ProfileActionTypes.REGISTER_START, register),
     takeEvery(ProfileActionTypes.LOGOUT_START, logout),
   ])
 }
 
-function* setCandidateInterviewDetails(action) {
+function* login(action) {
   try {
     const {data} = yield call(axios.post, `/authenticate`, action.payload);
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
 
     session.setSession(data.token);
     yield put(ProfileActions.loginSuccess(session.getSession()));
-    history.push(ApplicationRoutes.ROOT);
+    history.push(ApplicationRoutes.INTERVIEWS_LIST);
   } catch (error) {
     yield put(ProfileActions.loginError(error));
   }
 }
 
-function* requestAccountCreation(action) {
+function* register(action) {
   try {
     yield delay(1000);
     yield call(axios.post, `/register`, action.payload);
