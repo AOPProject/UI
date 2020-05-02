@@ -4,15 +4,17 @@ export enum ProfileActionTypes {
   LOGIN_ERROR = "[PROFILE]LOGIN_ERROR",
   REGISTER_START = "[PROFILE]REGISTER_START",
   REGISTER_SUCCESS = "[PROFILE]REGISTER_SUCCESS",
-  REGISTER_ERROR = "[PROFILE]REGISTER_ERROR"
+  REGISTER_ERROR = "[PROFILE]REGISTER_ERROR",
+  LOGOUT_START = '[PROFILE]LOGOUT_START',
+  LOGOUT_SUCCESS = '[PROFILE]LOGOUT_SUCCESS',
 }
 
 export class ProfileActions {
-  static loginStart(userName: string, password: string) {
+  static loginStart(email: string, password: string) {
     return {
       type: ProfileActionTypes.LOGIN_START,
       payload: {
-        userName,
+        username: email,
         password
       }
     }
@@ -29,6 +31,18 @@ export class ProfileActions {
     return {
       type: ProfileActionTypes.LOGIN_ERROR,
       error
+    }
+  }
+
+  static logout() {
+    return {
+      type: ProfileActionTypes.LOGOUT_START
+    }
+  }
+
+  static logoutSuccess() {
+    return {
+      type: ProfileActionTypes.LOGOUT_SUCCESS
     }
   }
 

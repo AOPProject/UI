@@ -6,7 +6,7 @@ import candidateIcon from '../../assets/candidate-icon.svg';
 import employeeIcon from '../../assets/employee-icon.svg';
 import './WelcomePage.css';
 import {palette} from "../../styles/palette";
-import history from '../../history';
+import history from '../../core/history';
 import {ApplicationRoutes} from "../../Routes";
 
 const useStyles = makeStyles((theme) => ({

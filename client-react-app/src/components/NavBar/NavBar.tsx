@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../../style.css';
+import '../../styles/style.css';
 import { connect } from 'react-redux';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -8,13 +8,14 @@ import { ApplicationState } from '../../store/application-state';
 import {palette} from "../../styles/palette";
 
 interface NavBarProps{
-  userName: string,
-  isAuthenticated: boolean,
+  email: string,
+  firstName: string;
 }
 
 class NavBarContainer extends React.Component<NavBarProps, {}> {
   render() {
-    const loginInfo = this.props.isAuthenticated ? this.props.userName : <AccountCircle/>;
+    const {email, firstName} = this.props;
+    const loginInfo = email ? `Hello, ${firstName}` : <AccountCircle/>;
 
     return(
       <React.Fragment>
@@ -26,7 +27,7 @@ class NavBarContainer extends React.Component<NavBarProps, {}> {
             <Typography variant="h6" style={{width: '90%', display: 'flex', justifyContent: 'center'}}>
               <Link to="/" style={{color: 'white'}}>Front Desk</Link>
             </Typography>
-            <Link to={this.props.isAuthenticated ? '/profile' :'/login'} style={{width: '5%', display: 'flex', justifyContent: 'center', color: 'white'}}>
+            <Link to={email ? '/profile' :'/login'} style={{width: '5%', display: 'flex', justifyContent: 'center', color: 'white'}}>
               {loginInfo}
             </Link>
           </Toolbar>
@@ -38,8 +39,8 @@ class NavBarContainer extends React.Component<NavBarProps, {}> {
 
 const mapStateToProps = (state : ApplicationState) => {
   return {
-    userName: state.profile.userName,
-    isAuthenticated: state.profile.isAuthenticated
+    email: state.profile.email,
+    firstName: state.profile.firstName,
   }
 };
 

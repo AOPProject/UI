@@ -5,25 +5,38 @@ import SignUp from './components/SignUp/SignUp';
 import { WelcomePage } from "./components/WelcomePage/WelcomePage";
 import CandidatePage from "./components/CandidatePage/CandidatePage";
 import CandidateInterviewDetails from "./components/CandidateInterviewDetails/CandidateInterviewDetails";
+import Profile from "./components/Profile/Profile";
+import {PrivateRoute} from "./core/private-route";
+import {ApplicationState} from "./store/application-state";
+import {connect} from "react-redux";
 
 export enum ApplicationRoutes {
   ROOT = '/',
   CANDIDATE_PAGE = '/candidate-page',
   CANDIDATE_INTERVIEW_DETAILS = '/candidate-interview-details',
   LOGIN = '/login',
-  SIGN_UP = '/sign-up'
+  SIGN_UP = '/sign-up',
+  PROFILE = '/profile'
 }
 
-export class Routes extends React.Component<{}, {}> {
-    render() {
-        return (
-            <div style={{height: 'calc(100% - 64px)', display: 'flex'}}>
-                <Route path={ApplicationRoutes.ROOT} exact strict component={WelcomePage}/>
-                <Route path={ApplicationRoutes.CANDIDATE_PAGE} exact strict component={CandidatePage}/>
-                <Route path={ApplicationRoutes.CANDIDATE_INTERVIEW_DETAILS} exact strict component={CandidateInterviewDetails}/>
-                <Route path={ApplicationRoutes.LOGIN} exact strict component={Login}/>
-                <Route path={ApplicationRoutes.SIGN_UP} exact strict component={SignUp}/>
-            </div>
-        )
-    }
+class Routes extends React.Component<{authed?: boolean}, {}> {
+  render() {
+    const authed = this.props.authed;
+    return (
+      <div style={{height: 'calc(100% - 64px)', display: 'flex'}}>
+        <Route path={ApplicationRoutes.ROOT} exact strict component={WelcomePage}/>
+        <Route path={ApplicationRoutes.CANDIDATE_PAGE} exact strict component={CandidatePage}/>
+        <Route path={ApplicationRoutes.CANDIDATE_INTERVIEW_DETAILS} exact strict component={CandidateInterviewDetails}/>
+        <Route path={ApplicationRoutes.LOGIN} exact strict component={Login}/>
+        <Route path={ApplicationRoutes.SIGN_UP} exact strict component={SignUp}/>
+        <PrivateRoute path={ApplicationRoutes.PROFILE} authed={authed} exact strict component={Profile}/>
+      </div>
+    )
+  }
 }
+
+const mapStateToProps = (state: ApplicationState) => ({
+  authed: state.profile.email !== ''
+});
+
+export default connect(mapStateToProps, null)(Routes);

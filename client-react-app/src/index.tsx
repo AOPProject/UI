@@ -2,18 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core";
-import './index.css';
+import './styles/index.css';
 import NavBar from './components/NavBar/NavBar';
 import * as serviceWorker from './serviceWorker';
 import { applyMiddleware, createStore}  from "redux";
 import reducers from './store/reducers';
 import logger from "redux-logger";
-import history from './history';
-import { Routes } from './Routes';
+import history from './core/history';
+import Routes from './Routes';
 import { Provider } from "react-redux";
 import { theme } from './styles/material-theme';
 import createSagaMiddleware from "redux-saga";
 import {rootSaga} from "./store/sagas";
+import {ProfileActions} from "./store/profile/profile.actions";
+import {Session} from "./core/session";
+import axios from 'axios';
+
+// create session
+export const session = new Session();
+
+axios.defaults.baseURL = 'http://localhost:8080';
+const token = session.getToken();
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
@@ -23,7 +35,9 @@ export const store = createStore(reducers, applyMiddleware(sagaMiddleware, logge
 // run the saga
 sagaMiddleware.run(rootSaga);
 
-store.dispatch({type: 'INITIAL_STATE_REDUX_TEST'});
+store.dispatch(
+  ProfileActions.loginSuccess(session.getSession())
+);
 
 ReactDOM.render(
   <Provider store={store}>

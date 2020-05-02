@@ -22,7 +22,7 @@ html, body {
   margin: auto;
   overflow: hidden;
   border: 1px solid #d1d7e2;
-  borderRadius: 3px;
+  border-radius: 3px;
   width: 460px;
 }
 

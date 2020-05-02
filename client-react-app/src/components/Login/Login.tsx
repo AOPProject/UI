@@ -9,7 +9,7 @@ import {ProfileActions} from "../../store/profile/profile.actions";
 import {ApplicationRoutes} from "../../Routes";
 
 interface LoginState {
-  userName: string,
+  email: string,
   password: string,
 }
 
@@ -25,7 +25,7 @@ class LoginContainer extends React.Component<LoginProps, LoginState> {
     super(props);
 
     this.state = {
-      userName: '',
+      email: '',
       password: '',
     }
   }
@@ -35,9 +35,9 @@ class LoginContainer extends React.Component<LoginProps, LoginState> {
     this.props.login(userName, password);
   };
   
-  changeUserName = (event: any) => {
+  changeEmail = (event: any) => {
     this.setState({
-      userName: event.target.value
+      email: event.target.value
     })
   };
 
@@ -53,9 +53,9 @@ class LoginContainer extends React.Component<LoginProps, LoginState> {
         {this.props.loading && <LinearProgress variant="indeterminate"/>}
         <div className="padding-40">
           <ValidatorForm onSubmit={(event) => {
-            event.preventDefault();
-            return this.login(this.state.userName, this.state.password);
-          }} >
+                           event.preventDefault();
+                           return this.login(this.state.email, this.state.password);
+                         }}>
             <div style={{alignSelf: 'center'}}>
               <AccesibilityIcon style={{marginLeft: '48%'}}/>
             </div>
@@ -67,12 +67,12 @@ class LoginContainer extends React.Component<LoginProps, LoginState> {
             </h3>
             <div>
               <TextValidator
-                name="username"
-                placeholder="User name"
+                name="email"
+                placeholder="Email"
                 variant="outlined"
-                value={this.state.userName}
+                value={this.state.email}
                 margin="normal"
-                onChange={this.changeUserName}
+                onChange={this.changeEmail}
                 className="width-100"
                 validators={['required']}
                 errorMessages={['This field is required']}

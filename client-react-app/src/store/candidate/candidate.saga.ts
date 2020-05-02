@@ -2,7 +2,7 @@ import {CandidateActions, CandidateActionTypes} from "./candidate.actions";
 import { all, takeEvery, put, delay } from "redux-saga/effects";
 import {candidateInterviewDetailsMOCK} from "../../mocks/candidate.mocks";
 import {ApplicationRoutes} from "../../Routes";
-import history from "../../history";
+import history from "../../core/history";
 
 export function* candidateSaga() {
   yield all([

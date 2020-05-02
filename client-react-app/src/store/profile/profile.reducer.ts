@@ -2,8 +2,9 @@ import {ProfileState} from "../application-state";
 import {ProfileActionTypes} from "./profile.actions";
 
 const initialState: ProfileState = {
-  userName: '',
-  isAuthenticated: false,
+  email: '',
+  firstName: '',
+  lastName: '',
   loading: false,
   error: null,
 };
@@ -18,6 +19,12 @@ export function profileReducer(state = initialState, action: any) {
     }
     case ProfileActionTypes.LOGIN_ERROR: {
       return {...state, ...{loading: false}, ...{error: action.error}};
+    }
+    case ProfileActionTypes.LOGOUT_START: {
+      return {...state, ...{loading: true}};
+    }
+    case ProfileActionTypes.LOGOUT_SUCCESS: {
+      return {...state, ...initialState};
     }
     case ProfileActionTypes.REGISTER_START: {
       return {...state, ...{loading: true}};
