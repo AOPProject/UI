@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import {ApplicationState, CandidateInterviewDetails} from '../../store/application-state';
+import {List, ListItem, ListItemText} from "@material-ui/core";
 
 interface CandidateInterviewState {
 }
@@ -22,13 +23,21 @@ class CandidatePage extends React.Component<CandidateInterviewProps, CandidateIn
 
   render() {
 
-    const {room, interviewer, interviewType} = this.props.interviewDetails;
+    const {room, interviewer, interviewType, email} = this.props.interviewDetails;
 
     return(
       <div className="centered-box-container padding-40">
-          <div>Room: {room}</div>
-          <div>Interviewer: {interviewer}</div>
-          <div>Interview Type: {interviewType}</div>
+        <List component="nav">
+          <ListItem>
+            <ListItemText primary={`Room: ${room}`} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary={`Interviewer: ${interviewer}`} />
+          </ListItem>
+          <ListItem>
+            <ListItemText primary={`Interview Type: ${interviewType}`} />
+          </ListItem>
+        </List>
       </div>
     )
   }

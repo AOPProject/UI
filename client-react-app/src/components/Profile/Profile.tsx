@@ -25,7 +25,7 @@ class Profile extends React.Component<ProfileProps, {}> {
           <Button type="submit" variant='outlined'>Logout</Button>
         </div>
 
-        <h1>{email}</h1>
+        <h1>{firstName}'s profile</h1>
 
         <List component="nav">
           <ListItem>
@@ -34,8 +34,10 @@ class Profile extends React.Component<ProfileProps, {}> {
           <ListItem>
             <ListItemText primary={`Last name: ${lastName}`} />
           </ListItem>
+          <ListItem>
+            <ListItemText primary={`Email: ${email}`} />
+          </ListItem>
         </List>
-        <Divider />
       </div>
     );
 

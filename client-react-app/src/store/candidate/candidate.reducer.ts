@@ -5,6 +5,7 @@ const initialState: CandidateInterviewDetails = {
   interviewer: '',
   interviewType: '',
   room: '',
+  email: '',
   loading: false,
   error: null
 };

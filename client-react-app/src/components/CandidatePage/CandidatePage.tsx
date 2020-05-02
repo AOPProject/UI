@@ -11,7 +11,7 @@ interface CandidatePageState {
 }
 
 interface CandidatePageProps {
-  getInterviewDetails: () => void;
+  getInterviewDetails: (email: string) => void;
   loading: boolean;
   error: boolean;
 }
@@ -29,7 +29,7 @@ class CandidatePage extends React.Component<CandidatePageProps, CandidatePageSta
 
   checkEmail = (email: string) => {
     console.log(`Checking email: ${email} ...`);
-    this.props.getInterviewDetails();
+    this.props.getInterviewDetails(email);
   };
 
   changeEmail = (event: any) => {
@@ -94,7 +94,7 @@ const mapStateToProps = (state : ApplicationState) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getInterviewDetails: () => dispatch(CandidateActions.getInterviewDetailsStart())
+    getInterviewDetails: (email: string) => dispatch(CandidateActions.getInterviewDetailsStart(email))
   }
 };
 

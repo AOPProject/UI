@@ -15,6 +15,7 @@ export interface CandidateInterviewDetails {
   room: string;
   interviewType: string;
   interviewer: string;
+  email: string;
   loading: boolean;
   error: any;
 }

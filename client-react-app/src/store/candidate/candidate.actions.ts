@@ -5,9 +5,12 @@ export enum CandidateActionTypes {
 }
 
 export class CandidateActions {
-  static getInterviewDetailsStart() {
+  static getInterviewDetailsStart(email: string) {
     return {
-      type: CandidateActionTypes.GET_INTERVIEW_DETAILS_START
+      type: CandidateActionTypes.GET_INTERVIEW_DETAILS_START,
+      payload: {
+        email
+      }
     }
   }
 
