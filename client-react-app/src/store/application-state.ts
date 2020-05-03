@@ -17,6 +17,9 @@ export interface CandidateInterviewDetails {
   interviewType: string;
   interviewer: string;
   email: string;
+  phone: string;
+  firstName: string;
+  lastName: string;
   loading: boolean;
   error: any;
 }

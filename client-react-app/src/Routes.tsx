@@ -10,6 +10,7 @@ import {PrivateRoute} from "./core/private-route";
 import {ApplicationState} from "./store/application-state";
 import {connect} from "react-redux";
 import InterviewsList from "./components/InterviewsList/InterviewsList";
+import CandidateInfo from "./components/CandidateInfo/CandidateInfo";
 
 export enum ApplicationRoutes {
   ROOT = '/',
@@ -35,6 +36,7 @@ class Routes extends React.Component<{authed?: boolean}, {}> {
         <Route path={ApplicationRoutes.SIGN_UP} exact strict component={SignUp}/>
         <PrivateRoute path={ApplicationRoutes.PROFILE} authed={authed} exact strict component={Profile}/>
         <PrivateRoute path={ApplicationRoutes.INTERVIEWS_LIST} authed={authed} exact strict component={InterviewsList}/>
+        <PrivateRoute path={ApplicationRoutes.CANDIDATE_INFO + '/:id'} authed={authed} exact strict component={CandidateInfo}/>
       </div>
     )
   }

@@ -6,8 +6,11 @@ const initialState: CandidateInterviewDetails = {
   interviewType: '',
   room: '',
   email: '',
+  phone: '',
+  firstName: '',
+  lastName: '',
   loading: false,
-  error: null
+  error: null,
 };
 
 export function candidateReducer(state = initialState, action: any) {
@@ -19,6 +22,15 @@ export function candidateReducer(state = initialState, action: any) {
       return {...state, ...{loading: false}, ...action.payload};
     }
     case CandidateActionTypes.GET_INTERVIEW_DETAILS_ERROR: {
+      return {...state, ...{loading: false}, ...{error: action.error}};
+    }
+    case CandidateActionTypes.LOAD_CANDIDATE_INFO_START: {
+      return {...state, ...{loading: true}};
+    }
+    case CandidateActionTypes.LOAD_CANDIDATE_INFO_SUCCESS: {
+      return {...state, ...{loading: false}, ...action.payload};
+    }
+    case CandidateActionTypes.LOAD_CANDIDATE_INFO_ERROR: {
       return {...state, ...{loading: false}, ...{error: action.error}};
     }
     default:
