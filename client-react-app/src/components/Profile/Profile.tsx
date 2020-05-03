@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {connect} from "react-redux";
-import {Button, Divider, List, ListItem, ListItemText} from '@material-ui/core';
+import {Button, List, ListItem, ListItemText} from '@material-ui/core';
 import {ApplicationState} from '../../store/application-state';
 import {ProfileActions} from "../../store/profile/profile.actions";
 

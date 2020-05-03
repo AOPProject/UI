@@ -22,7 +22,17 @@ export interface CandidateInterviewDetails {
 }
 
 export interface InterviewsState {
-  interviewsList: Array<any>;
+  interviewsList: Array<Interview>;
   loading: boolean;
   error: any;
+}
+
+export interface Interview {
+  candidateId: number;
+  date: string;
+  id: number;
+  interviewerId: number;
+  reservedRoom: string;
+  score: number;
+  type: string;
 }

@@ -1,6 +1,5 @@
 import {CandidateActions, CandidateActionTypes} from "./candidate.actions";
 import {all, takeEvery, put, delay, call} from "redux-saga/effects";
-import {candidateInterviewDetailsMOCK} from "../../mocks/candidate.mocks";
 import {ApplicationRoutes} from "../../Routes";
 import history from "../../core/history";
 import axios from "axios";

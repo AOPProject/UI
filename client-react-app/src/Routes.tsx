@@ -18,7 +18,9 @@ export enum ApplicationRoutes {
   LOGIN = '/login',
   SIGN_UP = '/sign-up',
   PROFILE = '/profile',
-  INTERVIEWS_LIST = '/interviews-list'
+  INTERVIEWS_LIST = '/interviews-list',
+  CANDIDATE_INFO = '/candidate-info',
+  CHANGE_INTERVIEW_SCORE = '/change-interview-score',
 }
 
 class Routes extends React.Component<{authed?: boolean}, {}> {

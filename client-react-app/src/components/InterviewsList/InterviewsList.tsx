@@ -7,64 +7,94 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {connect} from "react-redux";
-import {ApplicationState} from "../../store/application-state";
+import {ApplicationState, Interview} from "../../store/application-state";
 import {Dispatch} from "redux";
 import {InterviewActions} from "../../store/interview/interview.actions";
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import {LinearProgress} from "@material-ui/core";
+import moment from 'moment/moment';
+import {ApplicationRoutes} from "../../Routes";
+import history from "../../core/history";
 
 interface InterviewsListProps {
   loadInterviews: () => void;
-  interviewsList: Array<any>;
+  interviews: Array<Interview>;
   loading: boolean;
   error: any;
 }
 
 class Interviews extends React.Component<InterviewsListProps, {}> {
 
+  constructor(props) {
+    super(props);
+
+    this.goToCandidateInfo = this.goToCandidateInfo.bind(this);
+    this.goToChangeInterviewScore = this.goToChangeInterviewScore.bind(this);
+  }
+
+
   componentDidMount(): void {
     this.props.loadInterviews();
   }
 
+  goToCandidateInfo(candidateId: number) {
+    history.push(`${ApplicationRoutes.CANDIDATE_INFO}/${candidateId}`);
+  }
+
+  goToChangeInterviewScore(interviewId: number) {
+    history.push(`${ApplicationRoutes.CHANGE_INTERVIEW_SCORE}/${interviewId}`);
+  }
+
   render () {
+    const {interviews, loading, error} = this.props;
+
     return (
-      <div className="padding-40">
-        <TableContainer component={Paper}>
-          <Table style={{minWidth: '95vw'}} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Dessert (100g serving)</TableCell>
-                <TableCell align="right">Calories</TableCell>
-                <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                <TableCell align="right">Protein&nbsp;(g)</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
+      <div>
+        <div className="padding-40">
+          <TableContainer component={Paper}>
+            {loading && <LinearProgress variant="indeterminate"/>}
+            <Table style={{minWidth: '95vw'}} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell><span style={{marginLeft: 16}}>Id</span></TableCell>
+                  <TableCell align="left"><span style={{marginLeft: 16}}>Candidate</span></TableCell>
+                  <TableCell align="left">Interviewer</TableCell>
+                  <TableCell align="left">Type</TableCell>
+                  <TableCell align="left">Room</TableCell>
+                  <TableCell align="left">Date</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {interviews.map((interview) => (
+                  <TableRow key={interview.id}>
+                    <TableCell component="th"
+                               scope="row"
+                               onClick={() => {
+                                 this.goToChangeInterviewScore(interview.id)
+                               }}>
+                      <span style={{cursor: 'pointer', padding: 16}}>{interview.id}</span>
+                    </TableCell>
+                    <TableCell align="left"
+                               onClick={() => {this.goToCandidateInfo(interview.candidateId)}}>
+                      <span style={{cursor: 'pointer', padding: 16}}>{interview.candidateId}</span>
+                    </TableCell>
+                    <TableCell align="left">
+                      {interview.interviewerId}
+                    </TableCell>
+                    <TableCell align="left">
+                      {interview.type}
+                    </TableCell>
+                    <TableCell align="left">
+                      {interview.reservedRoom}
+                    </TableCell>
+                    <TableCell align="left">
+                      {moment(interview.date).format('DD MMM YYYY HH:mm')}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
       </div>
     );
   }
