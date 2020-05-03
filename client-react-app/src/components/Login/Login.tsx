@@ -11,6 +11,7 @@ import {ApplicationRoutes} from "../../Routes";
 interface LoginState {
   email: string,
   password: string,
+  isTouched: boolean;
 }
 
 interface LoginProps {
@@ -27,23 +28,29 @@ class LoginContainer extends React.Component<LoginProps, LoginState> {
     this.state = {
       email: '',
       password: '',
+      isTouched: false
     }
   }
 
   login = (userName: string, password: string) => {
     console.log(`Logging user: ${userName} ...`);
+    this.setState({
+      isTouched: true
+    });
     this.props.login(userName, password);
   };
   
   changeEmail = (event: any) => {
     this.setState({
-      email: event.target.value
+      email: event.target.value,
+      isTouched: false
     })
   };
 
   changePassword = (event: any) => {
     this.setState({
-      password: event.target.value
+      password: event.target.value,
+      isTouched: false
     })
   };
 
@@ -100,7 +107,9 @@ class LoginContainer extends React.Component<LoginProps, LoginState> {
                 Log in
               </Button>
             </div>
-            <div style={{marginTop: 20, textAlign: 'center'}}>{this.props.badCredentials && 'Wrong username or password.'}</div>
+            <div style={{marginTop: 20, textAlign: 'center'}}>
+              {this.props.badCredentials && this.state.isTouched && 'Wrong username or password.'}
+            </div>
           </ValidatorForm>
         </div>
       </div>

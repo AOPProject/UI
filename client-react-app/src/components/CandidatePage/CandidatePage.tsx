@@ -8,6 +8,7 @@ import {CandidateActions} from "../../store/candidate/candidate.actions";
 
 interface CandidatePageState {
   email: string,
+  isTouched: boolean;
 }
 
 interface CandidatePageProps {
@@ -24,17 +25,22 @@ class CandidatePage extends React.Component<CandidatePageProps, CandidatePageSta
 
     this.state = {
       email: '',
+      isTouched: false
     };
   }
 
   checkEmail = (email: string) => {
     console.log(`Checking email: ${email} ...`);
+    this.setState({
+      isTouched: true
+    });
     this.props.getInterviewDetails(email);
   };
 
   changeEmail = (event: any) => {
     this.setState({
-      email: event.target.value
+      email: event.target.value,
+      isTouched: false
     })
   };
 
@@ -77,7 +83,7 @@ class CandidatePage extends React.Component<CandidatePageProps, CandidatePageSta
               </Button>
             </div>
 
-            <div style={{marginTop: 20, textAlign: 'center'}}>{this.props.error && 'Whoops! You email was not found on our servers.'}</div>
+            <div style={{marginTop: 20, textAlign: 'center'}}>{this.props.error && this.state.isTouched && 'Whoops! You email was not found on our servers.'}</div>
           </ValidatorForm>
         </div>
       </div>

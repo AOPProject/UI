@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import {ApplicationState, CandidateInterviewDetails} from '../../store/application-state';
-import {Button, List, ListItem, ListItemText} from "@material-ui/core";
+import {LinearProgress, List, ListItem, ListItemText} from "@material-ui/core";
 import {CandidateActions} from "../../store/candidate/candidate.actions";
 
 interface CandidateInterviewProps {
@@ -24,27 +24,32 @@ class CandidateInfo extends React.Component<CandidateInterviewProps, {}> {
     const {email, lastName, firstName, loading, phone} = this.props.candidate;
 
     return (
-      <div className="centered-box-container padding-40">
-        <div className="login-container">
-          <div style={{textAlign: 'center'}}>
-            <h1>{firstName}'s profile</h1>
+      <div className="centered-box-container">
+        {loading && <LinearProgress variant="indeterminate"/>}
+        {!loading && (
+          <div className="padding-40">
+            <div className="login-container">
+              <div style={{textAlign: 'center'}}>
+                <h1>{firstName}'s profile</h1>
 
-            <List component="nav">
-              <ListItem>
-                <ListItemText primary={`First name: ${firstName}`} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary={`Last name: ${lastName}`} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary={`Email: ${email}`} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary={`Phone: ${phone}`} />
-              </ListItem>
-            </List>
+                <List component="nav">
+                  <ListItem>
+                    <ListItemText primary={`First name: ${firstName}`} />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText primary={`Last name: ${lastName}`} />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText primary={`Email: ${email}`} />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText primary={`Phone: ${phone}`} />
+                  </ListItem>
+                </List>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     )
   }

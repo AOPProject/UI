@@ -37,7 +37,7 @@ class ChangeInterviewScore extends React.Component<ChangeInterviewScoreProps, Ch
     const interviewId = this.props.match.params.id;
 
     const interview = this.props.interviews
-      .find(interview => `${interview.id}` == interviewId);
+      .find(interview => `${interview.id}` === `${interviewId}`);
 
     if (!interview) {
       history.push(ApplicationRoutes.INTERVIEWS_LIST);
@@ -52,7 +52,6 @@ class ChangeInterviewScore extends React.Component<ChangeInterviewScoreProps, Ch
 
   render() {
     const {interview, newScore} = this.state;
-    console.log(interview);
 
     return interview && (
       <div className="centered-box-container">

@@ -1,5 +1,5 @@
 import {CandidateActions, CandidateActionTypes} from "./candidate.actions";
-import {all, takeEvery, put, delay, call} from "redux-saga/effects";
+import {all, takeEvery, put, call, delay} from "redux-saga/effects";
 import {ApplicationRoutes} from "../../Routes";
 import history from "../../core/history";
 import axios from "axios";
@@ -14,21 +14,26 @@ export function* candidateSaga() {
 function* setCandidateInterviewDetails(action) {
   try {
     const {data} = yield call(axios.get, `/interview/email/?email=${action.payload.email}`);
-    console.log('DATA: ', data);
+    yield delay(1000);
 
-    history.push(ApplicationRoutes.CANDIDATE_INTERVIEW_DETAILS);
-    const lastInterview = data[data.length - 1];
+    if (data.length === 0) {
+      yield put(CandidateActions.getInterviewDetailsError('No data found!'));
+    } else {
+      const lastInterview = data[data.length - 1];
+      const {data: candidateData} = yield call(axios.get, `/candidate/${lastInterview.candidateId}`);
+      const {data: interviewerData} = yield call(axios.get, `/interviewer/getInterviewer/${lastInterview.interviewerId}`);
 
-    const {data: candidateData} = yield call(axios.get, `/candidate/${lastInterview.candidateId}`);
-    console.log('DATA: ', candidateData);
-
-    const interviewDetails = {
-      room: lastInterview.reservedRoom || '',
-      interviewType: lastInterview.type || '' ,
-      interviewer: (lastInterview.firstName || '') + ' ' + (lastInterview.lastName || ''),
-      email: lastInterview.email || ''
-    };
-    yield put(CandidateActions.getInterviewDetailsSuccess(interviewDetails));
+      const interviewDetails = {
+        room: lastInterview.reservedRoom || '',
+        interviewType: lastInterview.type || '',
+        interviewer: (interviewerData.firstName || '') + ' ' + (interviewerData.lastName || ''),
+        email: candidateData.email || '',
+        firstName: candidateData.firstName || '',
+        lastName: candidateData.lastName || ''
+      };
+      yield put(CandidateActions.getInterviewDetailsSuccess(interviewDetails));
+      history.push(ApplicationRoutes.CANDIDATE_INTERVIEW_DETAILS);
+    }
   } catch (error) {
     yield put(CandidateActions.getInterviewDetailsError(error));
   }
@@ -37,7 +42,7 @@ function* setCandidateInterviewDetails(action) {
 function* loadCandidateInfo(action) {
   try {
     const {data} = yield call(axios.get, `/candidate/${action.payload.id}`);
-    console.log('DATA: ', data);
+    yield delay(1000);
     yield put(CandidateActions.loadCandidateInfoSuccess(data));
   } catch (error) {
     yield put(CandidateActions.loadCandidateInfoError(error));

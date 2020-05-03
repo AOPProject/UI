@@ -24,7 +24,7 @@ function* loadInterviews() {
 
 function* changeScore(action) {
   try {
-    const {data} = yield call(axios.put, '/interview', {
+    yield call(axios.put, '/interview', {
       id: action.payload.id,
       score: action.payload.newScore,
     });

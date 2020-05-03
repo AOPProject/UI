@@ -33,7 +33,7 @@ class NavBarContainer extends React.Component<NavBarProps, {}> {
               </Link>
             </Typography>
             <Link to={email !== '' ? ApplicationRoutes.PROFILE : ApplicationRoutes.LOGIN}
-                  style={{width: '5%', display: 'flex', justifyContent: 'center', color: 'white'}}>
+                  style={{width: '10%', display: 'flex', justifyContent: 'center', color: 'white'}}>
               {loginInfo}
             </Link>
           </Toolbar>

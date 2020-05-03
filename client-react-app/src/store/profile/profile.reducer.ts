@@ -12,25 +12,25 @@ const initialState: ProfileState = {
 export function profileReducer(state = initialState, action: any) {
   switch(action.type) {
     case ProfileActionTypes.LOGIN_START: {
-      return {...state, ...{loading: true}};
+      return {...state, ...{loading: true, error: null}};
     }
     case ProfileActionTypes.LOGIN_SUCCESS: {
-      return {...state, ...{loading: false}, ...action.payload};
+      return {...state, ...{loading: false, error: null}, ...action.payload};
     }
     case ProfileActionTypes.LOGIN_ERROR: {
       return {...state, ...{loading: false}, ...{error: action.error}};
     }
     case ProfileActionTypes.LOGOUT_START: {
-      return {...state, ...{loading: true}};
+      return {...state, ...{loading: true, error: null}};
     }
     case ProfileActionTypes.LOGOUT_SUCCESS: {
-      return {...state, ...initialState};
+      return {...state, ...initialState, error: null};
     }
     case ProfileActionTypes.REGISTER_START: {
-      return {...state, ...{loading: true}};
+      return {...state, ...{loading: true, error: null}};
     }
     case ProfileActionTypes.REGISTER_SUCCESS: {
-      return {...state, ...{loading: false}};
+      return {...state, ...{loading: false, error: null}};
     }
     case ProfileActionTypes.REGISTER_ERROR: {
       return {...state, ...{loading: false}, ...{error: action.error}};
