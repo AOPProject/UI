@@ -45,7 +45,7 @@ class Interviews extends React.Component<InterviewsListProps, {}> {
   }
 
   render () {
-    const {interviews, loading, error} = this.props;
+    const {interviews, loading} = this.props;
 
     return (
       <div>
@@ -61,6 +61,7 @@ class Interviews extends React.Component<InterviewsListProps, {}> {
                   <TableCell align="left">Type</TableCell>
                   <TableCell align="left">Room</TableCell>
                   <TableCell align="left">Date</TableCell>
+                  <TableCell align="left">Score</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -88,6 +89,9 @@ class Interviews extends React.Component<InterviewsListProps, {}> {
                     </TableCell>
                     <TableCell align="left">
                       {moment(interview.date).format('DD MMM YYYY HH:mm')}
+                    </TableCell>
+                    <TableCell align="left">
+                      {interview.score}
                     </TableCell>
                   </TableRow>
                 ))}

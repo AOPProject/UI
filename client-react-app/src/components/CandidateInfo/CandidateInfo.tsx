@@ -22,7 +22,6 @@ class CandidateInfo extends React.Component<CandidateInterviewProps, {}> {
 
   render() {
     const {email, lastName, firstName, loading, phone} = this.props.candidate;
-    console.log(this.props);
 
     return (
       <div className="centered-box-container padding-40">

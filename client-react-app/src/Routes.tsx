@@ -11,6 +11,7 @@ import {ApplicationState} from "./store/application-state";
 import {connect} from "react-redux";
 import InterviewsList from "./components/InterviewsList/InterviewsList";
 import CandidateInfo from "./components/CandidateInfo/CandidateInfo";
+import ChangeInterviewScore from "./components/ChangeInterviewScore/ChangeInterviewScore";
 
 export enum ApplicationRoutes {
   ROOT = '/',
@@ -37,6 +38,7 @@ class Routes extends React.Component<{authed?: boolean}, {}> {
         <PrivateRoute path={ApplicationRoutes.PROFILE} authed={authed} exact strict component={Profile}/>
         <PrivateRoute path={ApplicationRoutes.INTERVIEWS_LIST} authed={authed} exact strict component={InterviewsList}/>
         <PrivateRoute path={ApplicationRoutes.CANDIDATE_INFO + '/:id'} authed={authed} exact strict component={CandidateInfo}/>
+        <PrivateRoute path={ApplicationRoutes.CHANGE_INTERVIEW_SCORE + '/:id'} authed={authed} exact strict component={ChangeInterviewScore}/>
       </div>
     )
   }
